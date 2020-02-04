@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
-  def new; end
+  def new
+    @user = User.new
+  end
 
   def create
     login_params = params.require(:user).permit(:username, :password)
@@ -11,7 +13,8 @@ class SessionsController < ApplicationController
       remember_me
       redirect_to root_url 
     else
-      flash.now[:warning] = @user ? 'incorrect password' : "cannot find the user: #{ login_params[:username] }"
+      flash[:notice]= @user ? ['incorrect password'] : ["the user: #{ login_params[:username] } does not exist"]
+      @user = User.new
       render :new
     end
   end

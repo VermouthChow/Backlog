@@ -1,1 +1,109 @@
-user new
+<%= render partial: 'share/form_error_message.html.erb', object: @user %>
+
+<div class="user_panel">
+  <div class="form_title">
+    login
+  </div>
+  <%= form_for @user do |f| %>
+    <div class="form_body">
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-user" aria-hidden="true">
+          </span>
+        </div>
+        <%= f.text_field :username, autofocus: true, class:"form-control", placeholder: "Username" %>
+      </div>
+
+      </br>
+
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-lock" aria-hidden="true">
+          </span>
+        </div>
+        <%= f.password_field :password, class:"form-control", placeholder: "Password" %>
+      </div>
+
+      </br>
+
+      <div class="input-group">
+        <div class="input-group-addon">
+          <span class="glyphicon glyphicon-lock" aria-hidden="true">
+          </span>
+        </div>
+        <%= f.password_field :password_confirmation, class:"form-control", placeholder: "password confirmation" %>
+      </div>
+    </div>
+
+
+    <div class="form_footer">
+      <%= f.submit "reigister",class: "btn btn-default btn-lg login" %>
+      <%= link_to "login", login_path, class: "btn btn-default btn-lg register" %> 
+    </div>
+  <% end %>
+</div>
+<style type="text/css">
+  .user_panel{
+    margin: 5% auto;
+    width: 500px;
+    height: 360px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+    border-radius:7px;
+    -webkit-border-radius:7px;
+    -o-border-radius:7px;
+    
+  }
+
+  .form_title{
+    padding: 10px 20px;
+    
+    font-weight: bolder;
+    background-color: #eee;
+    color: #bbb;
+
+    border-top-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -o-border-top-left-radius:7px;
+
+    border-top-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    -o-border-top-right-radius:7px;
+  }
+
+  .form_body{
+    margin:15px 20px;
+    padding: 15px 20px;
+  }
+
+  .form_body div{
+    height: 40px;
+  }
+
+  .form_body input{
+    height: 40px;
+    font-size: 16px;
+    font-weight: bolder;
+  }
+
+  .form_footer{
+    margin: 0px 38px;
+    position: relative;
+  }
+
+  .register{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: #333;
+    font-weight: bolder;
+  }
+
+  .login{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: #333;
+    font-weight: bolder;
+  }
+</style>

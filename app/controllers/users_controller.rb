@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def new
-    User.new
+    @user ||= User.new
   end
 
   def create
@@ -10,7 +10,8 @@ class UsersController < ApplicationController
       login_as @user
       redirect_to root_url
     else
-      render :new
+      flash[:notice] = @user.errors.to_a
+      redirect_to signup_path
     end
   end
 end

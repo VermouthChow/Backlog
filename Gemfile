@@ -5,11 +5,16 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# bootstrap
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
+gem 'jquery-rails'
+# bcrypt password
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
+# pages
 gem 'will_paginate-bootstrap'
 gem 'will_paginate', '~> 3.1.0'
+
 gem 'i18n'
 
 # for controller test

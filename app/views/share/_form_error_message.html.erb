@@ -1,0 +1,14 @@
+<br>
+
+<% if @user && @user.errors.any? %>
+  <div class='bg-warning'>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li class="text-danger"><%= message%></li>
+      <% end %>
+    <ul>
+  </div>
+  <% @user.errors = nil %>
+<% end %>
+
+
