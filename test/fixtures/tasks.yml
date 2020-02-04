@@ -3,9 +3,35 @@
 # This model initially had no columns defined. If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
-#
-# one: {}
-# # column: value
-# #
-# two: {}
-# # column: value
+
+task_one: 
+  title: homework
+  content: this is a test content about homework
+  priority: ["urgent","important"]
+  priority_weight: 150
+  status: 0
+  user: one
+
+task_two:
+  title: homework2
+  content: this is a test content about homework2
+  priority: []
+  priority_weight: 0
+  status: 1
+  user: one
+
+task_three:
+  title: homework3
+  content: this is a test content about homework3
+  priority: ["important"]
+  priority_weight: 50
+  status: 2
+  user: two
+
+task_four:
+  title: homework3
+  content: this is a test content about homework3
+  priority: ["urgent"]
+  priority_weight: 50
+  status: 3
+  user: two
