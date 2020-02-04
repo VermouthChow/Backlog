@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Backlog
   class Application < Rails::Application
+    # WillPaginate default page
+    WillPaginate.per_page = 5
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 

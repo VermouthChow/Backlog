@@ -20,6 +20,14 @@ task_two:
   status: 1
   user: one
 
+task_deleted:
+  title: homework3
+  content: this is a test content about homework3
+  priority: ["urgent"]
+  priority_weight: 50
+  status: 3
+  user: two
+
 task_three:
   title: homework3
   content: this is a test content about homework3

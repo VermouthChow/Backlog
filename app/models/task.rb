@@ -14,8 +14,4 @@ class Task < ApplicationRecord
   def content_maximum_words
     errors.add(:content, "is too long(maximum words 40)") if content&.split(/\s+/).count > 40
   end
-
-  def calculate_priority_weight(priority_list)
-    priority_list.to_a.inject(0) { |sum, p| sum + PRIORITY[p].to_i }
-  end
 end
