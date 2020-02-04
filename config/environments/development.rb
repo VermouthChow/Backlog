@@ -1,7 +1,8 @@
 Rails.application.configure do
-  
-  config.logger = Logger.new(STDOUT)
-  config.log_level = :debug
+ 
+  logger = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -19,7 +20,7 @@ Rails.application.configure do
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
-
+用不了
     config.cache_store = :memory_store
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
