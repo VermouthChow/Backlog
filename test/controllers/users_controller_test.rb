@@ -17,8 +17,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     before_count = User.count
     post '/users', { params: { user: { username: 'tes---21', password: 'T1234est', password_confirmation: 'T1234est' } } }
 
-    assert_response :success
+    assert_response :redirect
     assert_equal before_count, User.count
-    assert_template 'users/new'
   end
 end

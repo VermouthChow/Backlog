@@ -1,0 +1,46 @@
+<div class="form_box container-fluid">
+  <%= form_for @task = Task.new, url: '/tasks' do |f| %>
+
+    <div class="row">
+      <div class="col-md-2 form_padding">
+        <%= f.text_field :title, placeholder: "Title" %>
+      </div>
+      
+      <div class="col-md-7 form_padding">
+        <%= f.text_field :content, placeholder: "code review for" %>
+      </div>
+
+      <div class="col-md-3 form_padding">
+
+        <%= check_box("task", "priority", {:multiple => true}, priority_keys[0], nil) %>
+        <%= f.label priority_keys[0] %>
+        <%= check_box("task", "priority", {:multiple => true}, priority_keys[1], nil) %>
+        <%= f.label priority_keys[1] %>
+
+        &nbsp;
+        <%= f.submit "ADD",class: "btn  btn-primary" %>
+      </div>
+    </div>
+  <% end %> 
+</div>
+<style type="text/css">
+  .form_box{
+    margin-top: 20px;
+  }
+
+  .form_box input[type=text]{
+
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #333;
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .form_padding{
+    padding: 15px 5px;
+  }
+
+
+</style>

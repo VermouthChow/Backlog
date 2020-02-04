@@ -1,1 +1,187 @@
-<h1>task index</h1>
+
+  <div class="task_table">
+    <div class="task_title">
+      <span>Tasks</span>
+      <div class="choose_box">
+        <input type="checkbox" name="checkbox">
+        &nbsp;
+        show closed tasks
+      </div>
+    </div>
+
+    <div class="container-fluid">
+
+      <% @tasks.each do |t| %>
+        <div class="row item_border_top">
+          <div class="col-md-8 item_col">
+            <span class="item_title">[<%= t.title %>]</span>
+            <%= t.content %> --
+            <% if t.status == 'open' %>
+            <label class="color_chip blue">open</label>
+            <% end %>
+
+            <% if t.status == 'closed' %>
+            <label class="color_chip">closed</label>
+            <% end %>
+
+            <% if t.status == 'in_progress' %>
+            <label class="color_chip green">process</label>
+            <% end %>
+          </div>
+
+
+          <div class="col-md-2 item_col">
+            <% t.priority.to_a.each do |p| %>
+              <% if p.strip.downcase == 'important' %>
+                <label class="color_chip red"><%= p %></label>
+                &nbsp;
+              <% elsif p.strip.downcase == 'urgent' %>
+                <label class="color_chip yellow"><%= p %></label>
+              <% end %>
+            <% end %>
+  
+          </div>
+
+          <div class="col-md-2 item_col">
+            
+
+            <%= link_to '', t, paramse: { id: t.id }, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default start_btn float_right glyphicon glyphicon-trash"  %>
+
+            <% if next_step_status(t.status) == 'in_progress' %>
+              <%= link_to 'start', t, paramse: { id: t.id }, method: :put, class: "btn btn-default float_right margin_right start_btn" %>
+            <% elsif next_step_status(t.status) == 'closed' %>
+              <%= link_to 'done', t, paramse: { id: t.id }, method: :put, class: "btn btn-primary float_right margin_right" %>
+            <% end %>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="item_border_top">
+        <!-- pager -->
+        <br />
+        <div class="col-sm-4 page_info">
+          <%= page_entries_info @tasks %>
+        </div>
+        <div class="col-sm-8 text-right">
+          <%= will_paginate @tasks, renderer: BootstrapPagination::Rails %>
+        </div>
+      </div>
+
+    </div> 
+
+  </div>
+
+  <div class="task_form">
+    <div>
+      enter you task
+    </div>
+    <%= render partial: 'task_form.html.erb' %>
+  </div>
+
+
+<style type="text/css">
+  
+  .task_table{
+    width: 80%;
+    margin: 10px auto; 
+    border: 1px solid #ccc;
+    border-radius: 7px; 
+    -webkit-border-radius: 7px; 
+    -o-border-radius: 7px; 
+  }
+
+  .task_title{
+    position: relative;
+    background-color: #5b95d4;
+    color: #fff;
+    padding: 18px 25px;
+
+     border-top-left-radius:7px;
+    -webkit-border-top-left-radius:7px;
+    -o-border-top-left-radius:7px;
+
+    border-top-right-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    -o-border-top-right-radius:7px;
+  }
+
+  .task_title span{
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .choose_box{
+    position: absolute;
+    top:18px;
+    right: 10px;
+    font-size: 16px;
+  }
+
+  .item_border_top{
+    border-top: 1px solid #ccc;
+  }
+
+  .item_col{
+    padding-top:15px;
+    padding-bottom: 15px;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #666;
+    word-wrap:break-word;
+  }
+
+  .item_title{
+    color: #333;
+  }
+
+  .color_chip{
+    display: inline-block;
+    padding: 5px 20px;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+
+    background-color: #bbb;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+  }
+
+  .blue{
+    background-color: #47a2ce;
+  }
+
+  .green{
+    background-color: #83b861;
+  }
+
+  .red{
+    background-color: #c95b54;
+  }
+
+  .yellow{
+    background-color: #f3ab4f;
+  }
+
+  .float_right{
+    float: right;
+  }
+
+  .margin_right{
+    margin-right: 15px;
+  }
+
+  .start_btn{
+    border-color: #333; 
+  }
+
+  .task_form{
+    width: 80%;
+    margin: 45px auto;
+  }
+
+
+</style>
+

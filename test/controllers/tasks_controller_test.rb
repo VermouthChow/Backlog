@@ -39,7 +39,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   def test_create
     sign_in_as_default
     before_count = Task.count
-    post '/tasks', params: { task: { title: 'test title', content: 'test content', priority: "[urgent,important]"} }
+    post '/tasks', params: { task: { title: 'test title', content: 'test content', priority: ['urgent','important']} }
 
     assert_response :redirect
     assert_equal before_count + 1, Task.count
