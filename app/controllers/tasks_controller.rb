@@ -3,7 +3,8 @@ class TasksController < ApplicationController
   helper_method :priority_keys, :next_step_status
 
   def index
-    @tasks = current_user.tasks.where.not(status: :deleted).order(created_at: :ASC).page(params[:page] || 1)
+    @tasks = tasks.order(created_at: :ASC).page(params[:page] || 1)
+    @show_closed_switch = show_closed_boolean
   end
 
   def new
@@ -17,9 +18,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    return if task.deleted?
-
-    task.update!(status: next_step_status(task.status))
+    task.update!(status: next_step_status(task.status)) unless task.deleted?
     redirect_to root_url
   end
 
@@ -29,18 +28,22 @@ class TasksController < ApplicationController
   end
 
   private
-  def task
-    @old_task ||= current_user.tasks.find(params[:id])
+
+  def tasks
+    old_tasks = current_user.tasks.where.not(status: :deleted)
+    old_tasks = old_tasks.where.not(status: :closed) unless show_closed_boolean
+    old_tasks
   end
 
-  # TODO: change
-  def params_with_priority_and_status
-    create_params = params.require(:task).permit(:title, :content)
-    priority_list = params[:task][:priority]
+  def task
+    @old_task ||= current_user.tasks.where.not(status: :deleted).find(params[:id])
+  end
 
-    create_params.merge(status: :open,
-                        priority_weight: calculate_priority_weight(priority_list),
-                        priority: priority_list)
+  def params_with_priority_and_status
+    priority_list = params[:task][:priority]
+    params.require(:task).permit(:title, :content).merge(status: :open,
+                                                         priority_weight: calculate_priority_weight(priority_list),
+                                                         priority: priority_list)
   end
 
   def calculate_priority_weight(priority_list)
@@ -53,5 +56,9 @@ class TasksController < ApplicationController
 
   def next_step_status(current_status)
     Task::statuses.key(Task::statuses[current_status] + 1)
+  end
+
+  def show_closed_boolean
+    ::ActiveModel::Type::Boolean.new.cast(params[:show_closed])
   end
 end

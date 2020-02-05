@@ -6,19 +6,19 @@
         <%= f.text_field :title, placeholder: "Title" %>
       </div>
       
-      <div class="col-md-7 form_padding">
-        <%= f.text_field :content, placeholder: "code review for" %>
+      <div class="col-md-8 form_padding">
+        <%= f.text_field :content, placeholder: "code review for (maximum words: 40)" %>
       </div>
 
-      <div class="col-md-3 form_padding">
+      <div class="col-md-2 form_padding">
+        <% priority_keys.each do |p| %>
+          &nbsp;
+          <%= check_box("task", "priority", {:multiple => true}, p, nil) %>
+          <%= f.label p %>
+        <% end %>
 
-        <%= check_box("task", "priority", {:multiple => true}, priority_keys[0], nil) %>
-        <%= f.label priority_keys[0] %>
-        <%= check_box("task", "priority", {:multiple => true}, priority_keys[1], nil) %>
-        <%= f.label priority_keys[1] %>
-
-        &nbsp;
-        <%= f.submit "ADD",class: "btn  btn-primary" %>
+        &nbsp;&nbsp;
+        <%= f.submit "ADD",class: "btn btn-primary" %>
       </div>
     </div>
   <% end %> 

@@ -3,9 +3,15 @@
     <div class="task_title">
       <span>Tasks</span>
       <div class="choose_box">
-        <input type="checkbox" name="checkbox">
-        &nbsp;
-        show closed tasks
+        <% if @show_closed_switch %>
+          <button>
+            <%= link_to('hide closed tasks', tasks_path(show_closed: false)) %>
+          </button>
+        <% else %>
+          <button>
+          <%= link_to('show all tasks', tasks_path(show_closed: true)) %>
+          </button>
+        <% end %>
       </div>
     </div>
 
@@ -14,8 +20,9 @@
       <% @tasks.each do |t| %>
         <div class="row item_border_top">
           <div class="col-md-8 item_col">
-            <span class="item_title">[<%= t.title %>]</span>
-            <%= t.content %> --
+            <span class="item_title">[<%= t.title %>]</span>&nbsp;&nbsp;
+            <%= t.content %> 
+            &nbsp;&nbsp;&nbsp;
             <% if t.status == 'open' %>
             <label class="color_chip blue">open</label>
             <% end %>
@@ -29,7 +36,6 @@
             <% end %>
           </div>
 
-
           <div class="col-md-2 item_col">
             <% t.priority.to_a.each do |p| %>
               <% if p.strip.downcase == 'important' %>
@@ -42,9 +48,7 @@
   
           </div>
 
-          <div class="col-md-2 item_col">
-            
-
+          <div class="col-md-2 item_col">            
             <%= link_to '', t, paramse: { id: t.id }, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default start_btn float_right glyphicon glyphicon-trash"  %>
 
             <% if next_step_status(t.status) == 'in_progress' %>
@@ -60,7 +64,7 @@
       <div class="item_border_top">
         <!-- pager -->
         <br />
-        <div class="col-sm-4 page_info">
+        <div class="col-sm-4 page_info" style="color: #337ab7">
           <%= page_entries_info @tasks %>
         </div>
         <div class="col-sm-8 text-right">
@@ -116,6 +120,7 @@
     top:18px;
     right: 10px;
     font-size: 16px;
+    color: #5b95d4;
   }
 
   .item_border_top{
@@ -181,7 +186,4 @@
     width: 80%;
     margin: 45px auto;
   }
-
-
 </style>
-

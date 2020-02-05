@@ -12,6 +12,6 @@ class Task < ApplicationRecord
 
   private
   def content_maximum_words
-    errors.add(:content, "is too long(maximum words 40)") if content&.split(/\s+/).count > 40
+    errors.add(:content, "is too long(maximum words: 40)") if content&.split(/\s+/).count > 40
   end
 end
