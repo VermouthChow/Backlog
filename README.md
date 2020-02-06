@@ -24,6 +24,8 @@ This is a simple tasks flow systems, you can register account, record your tasks
 
 * Run the database
 
+* `rake db:create` and `rake db:migrate` 
+
 * Bundle install
 
 * Run Backlog by `./start.sh/` (need permission) OR `bundle exec puma -C config/puma.rb`
@@ -32,4 +34,7 @@ Then you can access it on localhost:3000
 
 ## test
 
-unit test is minitest, use `rails test` to run all
+unit test is minitest
+
+* `rake db:test:prepare`
+* use `rails test` to run all
