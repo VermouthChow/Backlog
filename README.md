@@ -20,13 +20,13 @@ This is a simple tasks flow systems, you can register account, record your tasks
 
 * Make sure postgresql is installed
 
+* Bundle install
+
 * Update config/database.yml according to your database configure
 
 * Run the database
 
 * `rake db:create` and `rake db:migrate` 
-
-* Bundle install
 
 * Run Backlog by `./start.sh/` (need permission) OR `bundle exec puma -C config/puma.rb`
 
