@@ -52,7 +52,7 @@ class TaskTest < ActiveSupport::TestCase
     task = Task.new(test_task_params.merge(content: 'this '*41))
 
     assert_not task.valid?
-    assert_equal ["Content is too long(maximum words 40)"], task.errors.full_messages
+    assert_equal ["Content is too long(maximum words: 40)"], task.errors.full_messages
   end
 
   def test_create_task_with_no_content
